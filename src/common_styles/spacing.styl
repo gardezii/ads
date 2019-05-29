@@ -1,0 +1,95 @@
+// Usage className="m{direction}-{size}"
+// Example: className="mt-xs"; className="mx-sm-md" (x, y - axises)
+
+@import 'screen-size'
+
+$sizes = {
+    zero: 0px
+    xxs: 3px
+    xs: 5px
+    sm: 10px
+    sm-md: 15px
+    md: 20px
+    md-lg: 30px
+    lg: 40px
+    xlg: 50px
+}
+
+$directions = {
+    t: "top"
+    b: "bottom"
+    r: "right"
+    l: "left"
+}
+
+createScreenSpacing(spacingPrefix, args...)
+    for screenSize, screenSizeValue in $screen-sizes
+        .{spacingPrefix}-on-{screenSize}-screen
+            @media(max-width: screenSizeValue)
+                {block}
+
+for direction, directionValue in $directions
+    for size, sizeValue in $sizes
+        .m{direction}-{size}
+            margin-{directionValue}: sizeValue
+        .p{direction}-{size}
+            padding-{directionValue}: sizeValue
+
+for size, sizeValue in $sizes
+    .mx-{size}
+        margin-left: sizeValue
+        margin-right: sizeValue
+    .px-{size}
+        padding-left: sizeValue
+        padding-right: sizeValue
+
+for size, sizeValue in $sizes
+    .my-{size}
+        margin-top: sizeValue
+        margin-bottom: sizeValue
+    .py-{size}
+        padding-top: sizeValue
+        padding-bottom: sizeValue
+
+.mx-auto
+    margin-right: auto
+    margin-left: auto
+
+.m-zero
+    margin: 0
+
+.p-zero
+    padding: 0
+
+
+for direction, directionValue in $directions
+    for size, sizeValue in $sizes
+        +createScreenSpacing('m' + direction + '-' + size)
+            margin-{directionValue}: sizeValue
+        +createScreenSpacing('p' + direction + '-' + size)
+            padding-{directionValue}: sizeValue
+
+for size, sizeValue in $sizes
+    +createScreenSpacing('mx' + '-' + size)
+        margin-left: sizeValue
+        margin-right: sizeValue
+    +createScreenSpacing('px' + '-' + size)
+        padding-left: sizeValue
+        padding-right: sizeValue
+
+    +createScreenSpacing('my' + '-' + size)
+        margin-top: sizeValue
+        margin-bottom: sizeValue
+    +createScreenSpacing('py' + '-' + size)
+        padding-top: sizeValue
+        padding-bottom: sizeValue
+
++createScreenSpacing('mx-auto')
+    margin-right: auto
+    margin-left: auto
+
++createScreenSpacing('m-zero')
+    margin: 0
+
++createScreenSpacing('p-zero')
+    margin: 0

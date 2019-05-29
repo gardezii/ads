@@ -1,0 +1,27 @@
+@import '~common_styles/colors'
+
+$sizes = {
+    sm: 1px
+    md: 2px
+    lg: 3px
+}
+
+$colors = {
+    lightBlueGrey: $light-blue-grey
+    paleGrey: $pale-grey
+    black: $black
+    white: $white
+}
+
+// @stylint off
+:export {
+    separatorSizes: val($sizes);
+    separatorColors: val($colors);
+}
+// @stylint on
+
+for separatorSizeName, separatorSize in $sizes
+    for separatorColorName, separatorColor in $colors
+        .separator--{separatorSizeName}--{separatorColorName}
+            height: separatorSize
+            background: separatorColor
